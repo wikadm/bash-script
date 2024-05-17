@@ -1,0 +1,8 @@
+---
+ - hosts: your-VM 
+   tasks:
+      - name: install updates
+        ansible.builtin.shell: yum update -y;
+   tasks:
+      - name: chceck if server is required 
+        ansible.builtin.shell: if [[ `needs-restarting -r 2>&1 >/dev/null ; echo $?` == 1  ]]; then echo "needs reboot"; sudo reboot; else echo "don't need reboot"; fi   
