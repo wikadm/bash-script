@@ -7,7 +7,7 @@ echo "Welcome in script: ${0}"
 		then
 		
 		curl -k --request POST \
-                  --url 'https://yoururl' \
+                  --url 'https://yoururl/rest/api/2/reindex?type=foreground' \
                   --user 'login:password' \
                   --header 'Accept: application/json' \
                   --header 'Content-Type: application/json' >> /tmp/tmp.log
@@ -16,7 +16,7 @@ echo "Welcome in script: ${0}"
 		then
 		
 		curl -k --request POST \
-                  --url 'https://yoururl' \
+                  --url 'https://yoururl/rest/api/2/reindex?type=background' \
                   --user 'login:password' \
                   --header 'Accept: application/json' \
                   --header 'Content-Type: application/json' >> /tmp/tmp.log
@@ -33,7 +33,7 @@ echo "Welcome in script: ${0}"
 		then
 
 	    	curl -k --request POST \
-                  --url 'https://yoururl' \
+                  --url 'https://yoururl/rest/api/2/reindex?type=foreground' \
                   --user 'login:password' \
                   --header 'Accept: application/json' \
                   --header 'Content-Type: application/json' >> /tmp/tmp.log
@@ -41,7 +41,7 @@ echo "Welcome in script: ${0}"
 		elif [ ${2} == "background" ]
 		then
 			 curl -k --request POST \
-                  --url 'https://yoururl' \
+                  --url 'https://yoururl/rest/api/2/reindex?type=background' \
                   --user 'login:password' \
                   --header 'Accept: application/json' \
                   --header 'Content-Type: application/json' >> /tmp/tmp.log
