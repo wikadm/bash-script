@@ -1,0 +1,19 @@
+---
+ - hosts: yourvm
+   tasks:
+      - name: Generate list of users
+        ansible.builtin.shell: sudo -u postgres -H -- /var/lib/pgsql/monthly_disable.sh
+      - name: Grab a output file with users
+        fetch:
+             src: /var/lib/backups/logs/{{ lookup('pipe', 'date +%Y%m')}}_disable_users
+             dest: /data/fetched
+             msg: Copied output file
+ - hosts: localhost
+   tasks:
+      - name: Prepare document for script
+        ansible.builtin.shell: cat /data/fetched/db/var/lib/backups/logs/{{ lookup('pipe', 'date +%Y%m')}}_disable_users | awk '{print $1}' > /data/fetched/db/var/lib/backups/logs/{{ lookup('pipe', 'date +%Y%m')}}_disable_users.txt
+      - name: Run a script 
+        ansible.builtin.shell: /home/user/ansible/disable.sh /data/fetched/db/var/lib/backups/logs/{{ lookup('pipe', 'date +%Y%m')}}_disable_users.txt
+      - name: send mail to users with result of script and list of users
+        ansible.builtin.shell: echo ""|mailx -r email@com -s "Monthly users deactivation" -a /data/fetched/db/var/lib/backups/logs/{{ lookup('pipe', 'date +%Y%m')}}_disable_users.txt -q /data/log/{{ lookup('pipe', 'date +%Y%m')}}_api.out dest@email
+
