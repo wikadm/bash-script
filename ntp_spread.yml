@@ -1,0 +1,6 @@
+---
+ - hosts: groupofvm
+   tasks:
+      - name: Change of NTP
+        ansible.builtin.script: /home/user/ansible/ntp.sh >> /tmp/test.log
+
