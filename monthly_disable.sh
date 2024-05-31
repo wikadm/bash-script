@@ -1,4 +1,6 @@
 #!/bin/bash
+##Query will generate list of inactive user more than 365 days
+
 psql -t -d jiradb -c " SELECT d.directory_name, u.user_name,to_timestamp(CAST(ca.attribute_value AS BIGINT)/1000) AS \"Last Login\"
 FROM cwd_user u
     JOIN cwd_directory d ON u.directory_id = d.id
